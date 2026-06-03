@@ -49,7 +49,9 @@ function initMasonry() {
     transitionDuration: 0,
   });
   imagesLoaded(container, () => {
-    masonry.layout();
+    if (masonry) {
+      masonry.layout();
+    }
   });
 }
 

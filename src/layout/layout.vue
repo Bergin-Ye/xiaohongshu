@@ -3,8 +3,8 @@
     <sideBar class="sidebar" />
 
     <div class="content" ref="contentRef">
-      <Header />
-      <smallHeader v-show="showSmall" />
+      <Header v-if="showHeader" />
+      <smallHeader v-show="showSmall" v-if="showHeader" />
 
       <div class="main-content">
         <router-view />
@@ -22,7 +22,7 @@ import { useSearchStore } from '@/stores/search'
 import router from '@/router'
 
 const store = useSearchStore()
-
+const showHeader = ref(false)
 const showSmall = ref(false)
 const contentRef = ref(null)
 
@@ -43,6 +43,11 @@ watch(
 
     if (menuMap[name]) {
       router.push(menuMap[name])
+    }
+    if (['home', 'live', 'RED'].includes(name)) {
+      showHeader.value = true
+    } else {
+      showHeader.value = false
     }
   },
   { immediate: false }

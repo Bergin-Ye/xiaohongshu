@@ -18,6 +18,16 @@ const router = createRouter({
       name: "live",
       component: () => import("@/views/live.vue"),
     },
+    {
+      path: "/diandian",
+      name: "diandian",
+      component: () => import("@/views/diandian.vue"),
+    },
+    {
+      path: "/diandian/chat/:id",
+      name: "chat",
+      component: () => import("@/views/chatPage.vue"),
+    },
   ],
 });
 
