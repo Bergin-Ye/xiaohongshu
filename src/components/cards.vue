@@ -1,7 +1,15 @@
 <template>
   <div class="waterfallContainer">
     <div class="card" v-for="item in list" :key="item.id">
-      <img :src="item.img" alt="">
+      <!-- 骨架屏：图片没加载完显示 -->
+      <div class="skeleton" v-if="!item.loaded"></div>
+      <!-- 真实图片：加载完显示 -->
+      <img
+        :src="item.img"
+        @load="item.loaded = true"
+        v-show="item.loaded"
+        alt=""
+      >
       <div class="footer">
         <div class="title">{{ item.title }}</div>
         <div class="subtitle">
@@ -87,6 +95,20 @@ watch(() => props.list, async () => {
   border-radius: 12px;
   overflow: hidden;
   margin-bottom: 15px;
+}
+
+/* 骨架屏样式 */
+.skeleton {
+  width: 100%;
+  min-height: 178px;
+  max-height: 318px;
+  background: #333;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
 }
 
 /* 👇 只控制卡片大图，不影响头像、爱心 */
